@@ -1,7 +1,21 @@
+@import './reset.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+    font-family: IRANSans;
+    src: url(../public/fonts/IRANSans/IRANSansWeb_Light.woff) format("woff");
+    
+}
+@font-face {
+    font-family: IRANSansBold;
+    src: url(../public/fonts/IRANSans/IRANSansWeb_Bold.woff) format("woff"),
+}
+
 *{
-    direction: ltr;
+    font-family:IRANSans !important;
+}
+input{
+    outline: none;
 }

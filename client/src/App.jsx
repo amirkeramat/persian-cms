@@ -10,16 +10,18 @@ function App() {
   return (
     <div className='app'>
       <CmsContextProvider>
-        <header>
+        <div className="flex">
+        <div className="flex-1">
+          <SideBar />
+        </div>
+        <div className='flex-[5]'>
           <TopBar />
-        </header>
-      <main>
-        <SideBar />
-        {router}
-      </main>
-      <footer>
-        <Footer/>
-      </footer>
+          {router}
+        </div>
+        </div>
+        {/* <footer>
+          <Footer />
+        </footer> */}
       </CmsContextProvider>
     </div>
   );

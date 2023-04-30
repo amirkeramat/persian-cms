@@ -5,7 +5,11 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    fontFamily:{
+      'IRANSansBold':['IRANSansBold','sans-serif']
+    },
+    extend: {
+    },
   },
   plugins: [],
 }

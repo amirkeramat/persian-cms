@@ -4,7 +4,7 @@ export const CmsContext = createContext(null);
 
 const CmsContextProvider = ({ children }) => {
   const value = {};
-  return <CmsContext.Provider key={value}>
+  return <CmsContext.Provider value={value}>
     {children}
   </CmsContext.Provider>;
 };
