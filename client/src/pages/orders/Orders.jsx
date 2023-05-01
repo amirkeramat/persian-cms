@@ -1,8 +1,11 @@
 import React from 'react'
+import ErrorBox from "../../components/ErrorBox/ErrorBox";
 
 const Orders = () => {
   return (
-    <div>Orders</div>
+    <div>
+      <ErrorBox msg={'سفارشی یافت نشد'}/>
+    </div>
   )
 }
 

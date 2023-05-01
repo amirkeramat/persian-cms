@@ -1,8 +1,11 @@
 import React from 'react'
+import ErrorBox from "../../components/ErrorBox/ErrorBox";
 
 const Comments = () => {
   return (
-    <div>Comments</div>
+    <div>
+      <ErrorBox msg={'پیامی وجود ندارد'}/>
+    </div>
   )
 }
 

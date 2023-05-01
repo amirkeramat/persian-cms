@@ -14,7 +14,7 @@ function App() {
         <div className="flex-1">
           <SideBar />
         </div>
-        <div className='flex-[5]'>
+        <div className='flex-[5] bg-gray-300 bg-opacity-50'>
           <TopBar />
           {router}
         </div>

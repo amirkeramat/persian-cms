@@ -6,6 +6,7 @@ import { SlBasketLoaded } from "react-icons/sl";
 import { BsCurrencyDollar } from "react-icons/bs";
 import { AiOutlineBell } from "react-icons/ai";
 import { BsSun } from "react-icons/bs";
+import {HiOutlineHomeModern} from 'react-icons/hi2'
 
 export {AiOutlineHome,
 BiCommentDetail,
@@ -14,4 +15,4 @@ FiUsers,
 SlBasketLoaded,
 BsCurrencyDollar,
 AiOutlineBell,
-BsSun}
+BsSun,HiOutlineHomeModern}

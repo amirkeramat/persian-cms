@@ -1,8 +1,11 @@
 import React from 'react'
+import ErrorBox from "../../components/ErrorBox/ErrorBox";
 
 const Discounts = () => {
   return (
-    <div>Discounts</div>
+    <div>
+      <ErrorBox msg={'تخفیفی یافت نشد'}/>
+    </div>
   )
 }
 
