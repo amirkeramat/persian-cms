@@ -2,11 +2,11 @@ import { AiOutlineBell } from "react-icons/ai";
 import { BsSun } from "react-icons/bs";
 const TopBar = () => {
   return (
-    <div className='top=bar bg-gray-200 h-[75px] shadow-md shadow-gray-600 w-full'>
-      <div className='topBar-container flex justify-between items-center p-2'>
-        <div className='topBar-right flex items-center'>
+    <div className='top=bar bg-gray-200  shadow-md shadow-gray-600 w-full'>
+      <div className='topBar-container flex flex-col  md:flex-row justify-between items-center p-0 md:p-2'>
+        <div className='topBar-right flex items-center self-start'>
           <img
-            src='/images/1.jpg'
+            src='/images/userPhoto.jpg'
             className='w-[60px] rounded-full  me-5'
             alt=''
           />
@@ -15,7 +15,7 @@ const TopBar = () => {
             <h4>برنامه نویس فرانت اند</h4>
           </span>
         </div>
-        <div className='topBar-left flex items-center flex-[4] justify-end'>
+        <div className='topBar-left flex items-center flex-[4] justify-end mb-4 md:mb-0'>
           <div className='relative'>
             <input
               type='text'

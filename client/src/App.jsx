@@ -11,7 +11,7 @@ function App() {
     <div className='app'>
       <CmsContextProvider>
         <div className="flex">
-        <div className="flex-1">
+        <div className="flex-1 hidden md:block">
           <SideBar />
         </div>
         <div className='flex-[5] bg-gray-300 bg-opacity-50'>

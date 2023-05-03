@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import {BiMenuAltRight} from 'react-icons/bi'
+import {CiMenuKebab} from 'react-icons/ci'
 import {
   AiOutlineHome,
   BiCommentDetail,
@@ -8,8 +10,10 @@ import {
   BsCurrencyDollar,
   HiOutlineHomeModern,
 } from "../../icons/icons";
+import { CmsContext } from "../../contexts/CmsContext";
 import { Link } from "react-router-dom";
 const SideBar = () => {
+  const CmsContextData = useContext(CmsContext)
   const [menuItem] = useState([
     { id: 1, title: "صفحه اصلی", icon: <AiOutlineHome />, href: "/" },
     {
@@ -53,8 +57,17 @@ const SideBar = () => {
   };
  
   return (
-    <div className='sticky flex-1   top-[60px] right-0 overflow-y-auto bg-blue-900 h-screen text-white text-xl px-2'>
-      <h1 className=' text-base text-center'>به داشبود  خوش آمدید</h1>
+    <div className={`sticky flex-1  right-0 overflow-y-auto bg-blue-900 h-screen text-white text-xl  w-0 p-0  md:w-full md:p-2 `}>
+      <span className='flex'>
+        <div onClick={() => CmsContextData.setShowMenu((prv) => !prv)}>
+          {CmsContextData.showMenu ? (
+            <BiMenuAltRight className=' cursor-pointer' />
+          ) : (
+            <CiMenuKebab className=' cursor-pointer' />
+          )}
+        </div>
+        <h1 className='text-sm text-center'>به داشبود خوش آمدید</h1>
+      </span>
       <div className='h-[2px] bg-white w-full mt-2 mb-2'></div>
       <ul className='space-y-5 font-bold'>
         {menuItem.map((item) => (

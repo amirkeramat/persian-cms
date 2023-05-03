@@ -1,9 +1,27 @@
-import { createContext, useContext } from "react";
+import { createContext,useState } from "react";
 
 export const CmsContext = createContext(null);
 
 const CmsContextProvider = ({ children }) => {
-  const value = {};
+  const [productData, setProductData] = useState({
+    name: "",
+    price: "",
+    image: "",
+    count: "",
+    rate: "",
+    salesRate: "",
+    colors: [],
+  });
+    const [newProducts, setNewProducts] = useState([]);
+    const [showMenu,setShowMenu] = useState(false)
+  const value = {
+    productData,
+    setProductData,
+    newProducts,
+    setNewProducts,
+    showMenu,
+    setShowMenu,
+  };
   return <CmsContext.Provider value={value}>
     {children}
   </CmsContext.Provider>;
