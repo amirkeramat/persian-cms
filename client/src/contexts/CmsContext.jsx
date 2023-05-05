@@ -12,21 +12,27 @@ const CmsContextProvider = ({ children }) => {
     salesRate: "",
     colors: [],
   });
-    const [newProducts, setNewProducts] = useState([]);
+    const [products, setProducts] = useState([]);
     const [showMenu,setShowMenu] = useState(true)
     const [showDeleteModal,setShowDeleteModal] = useState(false)
     const [showEditModal,setShowEditModal] = useState(false)
+    const [showDetailModal,setShowDetailModal] = useState(false)
+    const [productId,setProductId] = useState(null)
   const value = {
     productData,
     setProductData,
-    newProducts,
-    setNewProducts,
+    products,
+    setProducts,
     showMenu,
     setShowMenu,
     showDeleteModal,
     setShowDeleteModal,
     showEditModal,
     setShowEditModal,
+    showDetailModal,
+    setShowDetailModal,
+    productId,
+    setProductId,
   };
   return <CmsContext.Provider value={value}>
     {children}

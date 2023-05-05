@@ -4,12 +4,12 @@ import AddNewProduct from "../../components/AddNewProduct/AddNewProduct";
 import ProductTmp from "../../components/pruducTmp/ProductTmp";
 import { CmsContext } from "../../contexts/CmsContext";
 const Products = () => {
-  const {newProducts,setNewProducts}= useContext(CmsContext);
+  const {products,setProducts}= useContext(CmsContext);
    useEffect(() => {
      fetch("http://localhost:3000/api/products")
        .then((res) => res.json())
        .then((data) =>{
-        setNewProducts(data)
+        setProducts(data)
         console.log(data);
        } 
        )
@@ -17,8 +17,7 @@ const Products = () => {
   return (
     <div>
       <AddNewProduct />
-      {/* <ProductTmp /> */}
-      {newProducts.length > 0 ? (
+      {products.length  ? (
         <ProductTmp />
       ) : (
         <ErrorBox msg={"محصولی یافت نشد"} />
