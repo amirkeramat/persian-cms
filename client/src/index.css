@@ -5,16 +5,17 @@
 
 @font-face {
     font-family: IRANSans;
-    src: url(../public/fonts/IRANSans/IRANSansWeb_Light.woff) format("woff");
+    src: url(/fonts/IRANSans/IRANSansWeb_Light.woff) format("woff");
     
 }
 @font-face {
     font-family: IRANSansBold;
-    src: url(../public/fonts/IRANSans/IRANSansWeb_Bold.woff) format("woff"),
+    src: url(/fonts/IRANSans/IRANSansWeb_Bold.woff) format("woff"),
 }
 
 *{
     font-family:IRANSans !important;
+    
 }
 input{
     outline: none;

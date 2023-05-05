@@ -1,39 +1,39 @@
 import react,{ useContext } from "react";
 import { CmsContext } from "../../contexts/CmsContext";
 const AddNewProduct = () => {
-
-  const CmsContextData = useContext(CmsContext);
+  const { newProducts, setNewProducts, productData, setProductData } =
+    useContext(CmsContext);
   const checkBoxHandler = (e) => {
     let isChecked = e.target.checked;
     if (isChecked) {
-      CmsContextData.setProductData((prv) => ({
+      setProductData((prv) => ({
         ...prv,
         colors: [...prv.colors, e.target.value],
       }));
     } else {
-      let colors = CmsContextData.productData.colors.filter(
+      let colors = productData.colors.filter(
         (color) => color !== e.target.value
       );
-      CmsContextData.setProductData((prv) => ({ ...prv, colors: colors }));
+      setProductData((prv) => ({ ...prv, colors: colors }));
     }
   };
 
   const fromSubmitHandler = (e) => {
     let checkBox = document.querySelectorAll(".checkBox");
     e.preventDefault();
-    if (CmsContextData.productData) {
+    if (productData) {
       let newProduct = {
-        id: CmsContextData.newProducts.length + 1,
-        name: CmsContextData.productData.name,
-        price: CmsContextData.productData.price,
-        image: CmsContextData.productData.image,
-        count: CmsContextData.productData.count,
-        rate: CmsContextData.productData.rate,
-        salesRate: CmsContextData.productData.salesRate,
-        colors: CmsContextData.productData.colors,
+        id: newProducts.length + 1,
+        name: productData.name,
+        price: productData.price,
+        image: productData.image,
+        count: productData.count,
+        rate: productData.rate,
+        salesRate: productData.salesRate,
+        colors: productData.colors,
       };
-      CmsContextData.setNewProducts([...CmsContextData.newProducts, newProduct]);
-      CmsContextData.setProductData({
+      setNewProducts([...newProducts, newProduct]);
+      setProductData({
         name: "",
         price: "",
         image: "",
@@ -48,18 +48,18 @@ const AddNewProduct = () => {
     }
   };
   return (
-    <div className='addNewProduct text-black mt-5 p-5'>
+    <div className='addNewProduct text-black mt-5 p-0 md:p-5'>
       <h1 className=' font-extrabold text-3xl mb-5'>افزودن محصول جدید</h1>
       <form
-        className='block space-y-2 md:grid md:grid-cols-2 md:space-y-0 md:gap-4 p-2 h-full'
+        className='grid grid-cols-1  md:grid-cols-2 gap-2 md:gap-4'
         onSubmit={(e) => fromSubmitHandler(e)}>
         <div className='addProduct-from-group'>
           <input
             type='text'
             placeholder='نام محصول را وارد نمایید'
-            value={CmsContextData.productData.name}
+            value={productData.name}
             onChange={(e) =>
-              CmsContextData.setProductData((prv) => ({
+              setProductData((prv) => ({
                 ...prv,
                 name: e.target.value,
               }))
@@ -72,9 +72,9 @@ const AddNewProduct = () => {
           <input
             type='text'
             placeholder='قیمت محصول را وارد نمایید'
-            value={CmsContextData.productData.price}
+            value={productData.price}
             onChange={(e) =>
-              CmsContextData.setProductData((prv) => ({
+              setProductData((prv) => ({
                 ...prv,
                 price: e.target.value,
               }))
@@ -89,9 +89,9 @@ const AddNewProduct = () => {
             min={1}
             max={100}
             placeholder='موجودی محصول را وارد نمایید'
-            value={CmsContextData.productData.count}
+            value={productData.count}
             onChange={(e) =>
-              CmsContextData.setProductData((prv) => ({
+              setProductData((prv) => ({
                 ...prv,
                 count: e.target.value,
               }))
@@ -104,9 +104,9 @@ const AddNewProduct = () => {
           <input
             type='text'
             placeholder='آدرس عکس محصول را وراد نمایید'
-            value={CmsContextData.productData.image}
+            value={productData.image}
             onChange={(e) =>
-              CmsContextData.setProductData((prv) => ({
+              setProductData((prv) => ({
                 ...prv,
                 image: e.target.value,
               }))
@@ -121,9 +121,9 @@ const AddNewProduct = () => {
             min={1}
             max={10}
             placeholder='میزان محبوبت محصول را وارد نمایید'
-            value={CmsContextData.productData.rate}
+            value={productData.rate}
             onChange={(e) =>
-              CmsContextData.setProductData((prv) => ({
+              setProductData((prv) => ({
                 ...prv,
                 rate: e.target.value,
               }))
@@ -136,9 +136,9 @@ const AddNewProduct = () => {
           <input
             type='text'
             placeholder='میزان فروش محصول را وارد نمایید'
-            value={CmsContextData.productData.salesRate}
+            value={productData.salesRate}
             onChange={(e) =>
-              CmsContextData.setProductData((prv) => ({
+              setProductData((prv) => ({
                 ...prv,
                 salesRate: e.target.value,
               }))
@@ -147,9 +147,9 @@ const AddNewProduct = () => {
           />
         </div>
 
-        <div className='addProduct-from-group col-span-2 flex justify-start items-center bg-gray-200 '>
+        <div className='addProduct-from-group md:col-span-2  flex justify-start items-center bg-gray-200 '>
           <h6 className=''>رنگبندی :</h6>
-          <div className='flex items-center justify-start bg-gray-200 flex-auto'>
+          <div className='flex items-center justify-start bg-gray-200 flex-auto flex-wrap'>
             <div className='p-2 rounded-xl flex items-center'>
               <label htmlFor='black'>مشکی</label>
               <input
@@ -211,7 +211,7 @@ const AddNewProduct = () => {
           </div>
         </div>
 
-        <div className='addProduct-from-group col-span-2 text-center'>
+        <div className='addProduct-from-group md:col-span-2 text-center'>
           <button type='submit' className='w-full bg-blue-500 p-2 rounded-2xl'>
             افزودن محصول
           </button>

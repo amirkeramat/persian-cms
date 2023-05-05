@@ -13,7 +13,9 @@ const CmsContextProvider = ({ children }) => {
     colors: [],
   });
     const [newProducts, setNewProducts] = useState([]);
-    const [showMenu,setShowMenu] = useState(false)
+    const [showMenu,setShowMenu] = useState(true)
+    const [showDeleteModal,setShowDeleteModal] = useState(false)
+    const [showEditModal,setShowEditModal] = useState(false)
   const value = {
     productData,
     setProductData,
@@ -21,6 +23,10 @@ const CmsContextProvider = ({ children }) => {
     setNewProducts,
     showMenu,
     setShowMenu,
+    showDeleteModal,
+    setShowDeleteModal,
+    showEditModal,
+    setShowEditModal,
   };
   return <CmsContext.Provider value={value}>
     {children}
