@@ -1,5 +1,7 @@
-import react, { useState } from "react";
+import react, { useState, useContext } from "react";
+import { CmsContext } from "../../contexts/CmsContext";
 const AddNewProduct = () => {
+  const { isAddNewProduct, setIsAddNewProduct } = useContext(CmsContext);
   // const checkBoxHandler = (e) => {
   //   let isChecked = e.target.checked;
   //   if (isChecked) {
@@ -23,15 +25,7 @@ const AddNewProduct = () => {
     sale: "",
     colors: "",
   });
-  const newProduct = {
-    title: productData.title,
-    price: productData.price,
-    count: productData.count,
-    img: productData.img,
-    popularity: productData.popularity,
-    sale: productData.sale,
-    colors: productData.colors
-  };
+
   const resetData = () => {
     setProductData({
       title: "",
@@ -47,16 +41,20 @@ const AddNewProduct = () => {
     e.preventDefault();
     // let checkBox = document.querySelectorAll(".checkBox");
     // checkBox.forEach((box) => (box.checked = false));
-    if (!Object.values(newProduct).includes("")) {
-      console.log(newProduct);
+    if (!Object.values(productData).includes("")) {
+      console.log(productData);
       fetch("http://localhost:8000/api/products", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newProduct),
+        body: JSON.stringify(productData),
       })
         .then((res) => res.json())
-        .then((data) => console.log(data));
-      // resetData();
+        .then((data) => {
+          if (data) {
+            setIsAddNewProduct(prv=>!prv);
+          }
+        });
+      resetData();
     } else {
       alert("مقادیر مورد نیاز را پر کنید");
     }
@@ -64,7 +62,9 @@ const AddNewProduct = () => {
   return (
     <div className='addNewProduct text-black mt-5 p-0 md:p-5'>
       <h1 className=' font-extrabold text-3xl mb-5'>افزودن محصول جدید</h1>
-      <form action="#" className='grid grid-cols-1  md:grid-cols-2 gap-2 md:gap-4'>
+      <form
+        action='#'
+        className='grid grid-cols-1  md:grid-cols-2 gap-2 md:gap-4'>
         <div className='addProduct-from-group'>
           <input
             type='text'

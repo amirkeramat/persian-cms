@@ -1,28 +1,13 @@
-import React, { useContext,useEffect } from "react";
-import ErrorBox from "../../components/ErrorBox/ErrorBox";
+import React from "react";
 import AddNewProduct from "../../components/AddNewProduct/AddNewProduct";
-import ProductTmp from "../../components/pruducTmp/ProductTmp";
-import { CmsContext } from "../../contexts/CmsContext";
+import ProductTmp from "../../components/productTmp/ProductTmp";
+import Pagination from "../../components/Pagination/Pagination";
 const Products = () => {
-  const {products,setProducts}= useContext(CmsContext);
-   useEffect(() => {
-     fetch("http://localhost:8000/api/products")
-       .then((res) => res.json())
-       .then((data) =>{
-        console.log(data);
-        setProducts(data)
-       } 
-       )
-   }, []);
   return (
     <div>
       <AddNewProduct />
-      {products.length  ? (
-        <ProductTmp />
-      ) : (
-        <ErrorBox msg={"محصولی یافت نشد"} />
-      )}
-      
+      <ProductTmp />
+      <Pagination />
     </div>
   );
 };

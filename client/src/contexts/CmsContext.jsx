@@ -10,6 +10,12 @@ const CmsContextProvider = ({ children }) => {
   const [showDetailModal, setShowDetailModal] = useState(false);
   const [productID, setProductID] = useState(null);
   const [showToastModal, setShowToastModal] = useState(false);
+  const [isActive, setIsActive] = useState("صفحه اصلی");
+  const [isAddNewProduct, setIsAddNewProduct] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageNumbers, setPageNumbers] = useState([]);
+    const [pageCount, setPageCount] = useState(null);
+
   const value = {
     products,
     setProducts,
@@ -25,6 +31,16 @@ const CmsContextProvider = ({ children }) => {
     setProductID,
     showToastModal,
     setShowToastModal,
+    isActive,
+    setIsActive,
+    isAddNewProduct,
+    setIsAddNewProduct,
+    currentPage,
+    setCurrentPage,
+    pageNumbers,
+    setPageNumbers,
+    pageCount,
+    setPageCount,
   };
   return <CmsContext.Provider value={value}>{children}</CmsContext.Provider>;
 };

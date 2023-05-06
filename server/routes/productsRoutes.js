@@ -50,7 +50,7 @@ productsRouter.put("/:productID", (req, res) => {
 
 productsRouter.post("/", (req, res) => {
   let body = req.body;
-  let addNewProductQuery = `INSERT INTO Products VALUES (NULL, "${body.title}", ${body.price}, ${body.count}, "${body.img}", ${body.popularity}, ${body.sale}, ${body.colors})`;
+  let addNewProductQuery = `INSERT INTO Products VALUES (NULL, "${body.title}", ${body.price}, ${body.count}, "${body.img}", ${body.popularity}, ${body.sale}, ${body.colors},0,0,1)`;
 
   SabzlearnShopDB.query(addNewProductQuery, (err, result) => {
     if (err) {

@@ -1,6 +1,5 @@
 import React, { useContext, useState } from "react";
 import { BiMenuAltRight } from "react-icons/bi";
-import { CiMenuKebab } from "react-icons/ci";
 import {
   AiOutlineHome,
   BiCommentDetail,
@@ -13,7 +12,8 @@ import {
 import { CmsContext } from "../../contexts/CmsContext";
 import { Link } from "react-router-dom";
 const SideBar = () => {
-  const { showMenu, setShowMenu } = useContext(CmsContext);
+  const { showMenu, setShowMenu, isActive, setIsActive } =
+    useContext(CmsContext);
   const [menuItem] = useState([
     { id: 1, title: "صفحه اصلی", icon: <AiOutlineHome />, href: "/" },
     {
@@ -39,12 +39,15 @@ const SideBar = () => {
     },
   ]);
 
-  const [isActive, setIsActive] = useState('صفحه اصلی');
   const MenuTemp = ({ item }) => {
     return (
       <li
-        className={`flex items-center py-2 rounded duration-500
-        ${isActive === item.title && "bg-blue-700 shadow-md shadow-blue-600"}`}>
+        className={`flex items-center  py-2 rounded duration-700
+        ${
+          isActive === item.title
+            ? "bg-gray-200 text-blue-900"
+            : "text-white bg-blue-900"
+        }`}>
         {item.icon}
         <Link
           onClick={() => setIsActive(item.title)}
