@@ -9,9 +9,7 @@ const EditProductModal = ({ submitAction, cancelAction, productInfo }) => {
       {showEditModal && (
         <div className=' fixed inset-0 h-full w-full border border-black flex justify-center items-center bg-gray-900 bg-opacity-80 z-40'>
           <div className='w-[75%] delete-modal-container flex flex-col space-y-5 items-center p-10 bg-gray-300 rounded-xl z-50'>
-            <form
-              className='grid  grid-cols-2 gap-2 w-full'
-              onSubmit={() => submitAction(editProduct)}>
+            <form className='grid  grid-cols-2 gap-2 w-full'>
               <label htmlFor=''>
                 نام:
                 <input
@@ -114,6 +112,7 @@ const EditProductModal = ({ submitAction, cancelAction, productInfo }) => {
               </label>
               <div className='flex justify-around w-full col-span-2 text-white '>
                 <button
+                  onClick={(e) => submitAction(editProduct, e)}
                   type='submit'
                   className='bg-blue-900 w-full p-2 rounded'>
                   Edit

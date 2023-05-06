@@ -6,11 +6,11 @@ import { CmsContext } from "../../contexts/CmsContext";
 const Products = () => {
   const {products,setProducts}= useContext(CmsContext);
    useEffect(() => {
-     fetch("http://localhost:3000/api/products")
+     fetch("http://localhost:8000/api/products")
        .then((res) => res.json())
        .then((data) =>{
-        setProducts(data)
         console.log(data);
+        setProducts(data)
        } 
        )
    }, []);

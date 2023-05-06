@@ -39,7 +39,7 @@ const SideBar = () => {
     },
   ]);
 
-  const [isActive, setIsActive] = useState("صفحه اصلی");
+  const [isActive, setIsActive] = useState('صفحه اصلی');
   const MenuTemp = ({ item }) => {
     return (
       <li

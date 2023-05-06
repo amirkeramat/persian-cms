@@ -1,67 +1,79 @@
-import react,{ useContext } from "react";
-import { CmsContext } from "../../contexts/CmsContext";
+import react, { useState } from "react";
 const AddNewProduct = () => {
-  const { newProducts, setNewProducts, productData, setProductData } =
-    useContext(CmsContext);
-  const checkBoxHandler = (e) => {
-    let isChecked = e.target.checked;
-    if (isChecked) {
-      setProductData((prv) => ({
-        ...prv,
-        colors: [...prv.colors, e.target.value],
-      }));
-    } else {
-      let colors = productData.colors.filter(
-        (color) => color !== e.target.value
-      );
-      setProductData((prv) => ({ ...prv, colors: colors }));
-    }
+  // const checkBoxHandler = (e) => {
+  //   let isChecked = e.target.checked;
+  //   if (isChecked) {
+  //     setProductData((prv) => ({
+  //       ...prv,
+  //       colors: [...prv.colors, e.target.value],
+  //     }));
+  //   } else {
+  //     let colors = productData.colors.filter(
+  //       (color) => color !== e.target.value
+  //     );
+  //     setProductData((prv) => ({ ...prv, colors: colors }));
+  //   }
+  // };
+  const [productData, setProductData] = useState({
+    title: "",
+    price: "",
+    count: "",
+    img: "",
+    popularity: "",
+    sale: "",
+    colors: "",
+  });
+  const newProduct = {
+    title: productData.title,
+    price: productData.price,
+    count: productData.count,
+    img: productData.img,
+    popularity: productData.popularity,
+    sale: productData.sale,
+    colors: productData.colors
   };
-
+  const resetData = () => {
+    setProductData({
+      title: "",
+      price: "",
+      img: "",
+      count: "",
+      popularity: "",
+      sale: "",
+      colors: "",
+    });
+  };
   const fromSubmitHandler = (e) => {
-    let checkBox = document.querySelectorAll(".checkBox");
     e.preventDefault();
-    if (productData) {
-      let newProduct = {
-        id: newProducts.length + 1,
-        name: productData.name,
-        price: productData.price,
-        image: productData.image,
-        count: productData.count,
-        rate: productData.rate,
-        salesRate: productData.salesRate,
-        colors: productData.colors,
-      };
-      setNewProducts([...newProducts, newProduct]);
-      setProductData({
-        name: "",
-        price: "",
-        image: "",
-        count: "",
-        rate: "",
-        salesRate: "",
-        colors: [],
-      });
-      checkBox.forEach((box) => (box.checked = false));
-    }else{
-      alert('مقادیر مورد نیاز را پر کنید')
+    // let checkBox = document.querySelectorAll(".checkBox");
+    // checkBox.forEach((box) => (box.checked = false));
+    if (!Object.values(newProduct).includes("")) {
+      console.log(newProduct);
+      fetch("http://localhost:8000/api/products", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newProduct),
+      })
+        .then((res) => res.json())
+        .then((data) => console.log(data));
+      // resetData();
+    } else {
+      alert("مقادیر مورد نیاز را پر کنید");
     }
   };
   return (
     <div className='addNewProduct text-black mt-5 p-0 md:p-5'>
       <h1 className=' font-extrabold text-3xl mb-5'>افزودن محصول جدید</h1>
-      <form
-        className='grid grid-cols-1  md:grid-cols-2 gap-2 md:gap-4'
-        onSubmit={(e) => fromSubmitHandler(e)}>
+      <form action="#" className='grid grid-cols-1  md:grid-cols-2 gap-2 md:gap-4'>
         <div className='addProduct-from-group'>
           <input
             type='text'
             placeholder='نام محصول را وارد نمایید'
-            value={productData.name}
+            value={productData.title}
             onChange={(e) =>
               setProductData((prv) => ({
                 ...prv,
-                name: e.target.value,
+                title: e.target.value,
               }))
             }
             className='bg-gray-300 p-2 w-full rounded placeholder-black'
@@ -85,9 +97,7 @@ const AddNewProduct = () => {
 
         <div className='addProduct-from-group'>
           <input
-            type='number'
-            min={1}
-            max={100}
+            type='text'
             placeholder='موجودی محصول را وارد نمایید'
             value={productData.count}
             onChange={(e) =>
@@ -104,11 +114,11 @@ const AddNewProduct = () => {
           <input
             type='text'
             placeholder='آدرس عکس محصول را وراد نمایید'
-            value={productData.image}
+            value={productData.img}
             onChange={(e) =>
               setProductData((prv) => ({
                 ...prv,
-                image: e.target.value,
+                img: e.target.value,
               }))
             }
             className='bg-gray-300 p-2 w-full rounded placeholder-black'
@@ -117,15 +127,13 @@ const AddNewProduct = () => {
 
         <div className='addProduct-from-group'>
           <input
-            type='number'
-            min={1}
-            max={10}
+            type='text'
             placeholder='میزان محبوبت محصول را وارد نمایید'
-            value={productData.rate}
+            value={productData.popularity}
             onChange={(e) =>
               setProductData((prv) => ({
                 ...prv,
-                rate: e.target.value,
+                popularity: e.target.value,
               }))
             }
             className='bg-gray-300 p-2 w-full rounded placeholder-black'
@@ -136,18 +144,33 @@ const AddNewProduct = () => {
           <input
             type='text'
             placeholder='میزان فروش محصول را وارد نمایید'
-            value={productData.salesRate}
+            value={productData.sale}
             onChange={(e) =>
               setProductData((prv) => ({
                 ...prv,
-                salesRate: e.target.value,
+                sale: e.target.value,
               }))
             }
             className='bg-gray-300 p-2 w-full rounded placeholder-black'
           />
         </div>
 
-        <div className='addProduct-from-group md:col-span-2  flex justify-start items-center bg-gray-200 '>
+        <div className='addProduct-from-group'>
+          <input
+            type='text'
+            placeholder='تعداد رنگ را وارد نمایید'
+            value={productData.colors}
+            onChange={(e) =>
+              setProductData((prv) => ({
+                ...prv,
+                colors: e.target.value,
+              }))
+            }
+            className='bg-gray-300 p-2 w-full rounded placeholder-black'
+          />
+        </div>
+
+        {/* <div className='addProduct-from-group md:col-span-2  flex justify-start items-center bg-gray-200 '>
           <h6 className=''>رنگبندی :</h6>
           <div className='flex items-center justify-start bg-gray-200 flex-auto flex-wrap'>
             <div className='p-2 rounded-xl flex items-center'>
@@ -209,10 +232,12 @@ const AddNewProduct = () => {
               />
             </div>
           </div>
-        </div>
+        </div> */}
 
         <div className='addProduct-from-group md:col-span-2 text-center'>
-          <button type='submit' className='w-full bg-blue-500 p-2 rounded-2xl'>
+          <button
+            onClick={fromSubmitHandler}
+            className='w-full bg-blue-500 p-2 rounded-2xl'>
             افزودن محصول
           </button>
         </div>

@@ -1,41 +1,101 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import react, { useContext, useEffect, useState } from "react";
+import react, { useContext, useState } from "react";
 import { CmsContext } from "../../contexts/CmsContext";
 import "./ProductTmp.css";
 import DeleteModal from "../DeleteModal/DeleteModal";
 import EditProductModal from "../EditProductModal/EditProductModal";
 import DetailModal from "../DetailModal/DetailModal";
+import ToastModal from "../ToastModal/ToastModal";
 const ProductTmp = () => {
   const {
     products,
+    setProducts,
     setShowDeleteModal,
     setShowEditModal,
     setShowDetailModal,
-    productId,
-    setProductId,
     showEditModal,
     showDetailModal,
     showDeleteModal,
+    showToastModal,
+    setShowToastModal,
   } = useContext(CmsContext);
+  const [toastMsg, setToastMsg] = useState(null);
   const [ProductInfo, setProductInfo] = useState({});
-  const deleteModalSubmitAction = () => {
-    setShowDeleteModal(false);
-    console.log(productId);
-    // fetch(`http://localhost:3000/api/products/${productID}`)
+  const [productID,setProductID] = useState(null)
+
+  const getData = () => {
+    fetch("http://localhost:8000/api/products")
+      .then((res) => res.json())
+      .then((data) => {
+        setProducts(data);
+      });
   };
+
+  // {'delete modal handlers'}
+
+  const deleteHandler = (productId) => {
+    setShowDeleteModal(true);
+    setProductID(productId);
+    setToastMsg("حذف با موفقیت انجام شد");
+  };
+  const deleteModalSubmitAction = () => {
+    fetch(`http://localhost:8000/api/products/${productID}`, {
+      method: "DELETE",
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        console.log(result);
+        setShowDeleteModal(false);
+        setShowToastModal(true);
+        setTimeout(() => {
+          setShowToastModal(false);
+        }, 3000);
+        getData();
+      });
+  };
+
   const deleteModalCancelAction = () => {
     setShowDeleteModal(false);
   };
-  const editModalSubmitAction = (edit) => {
-    setShowEditModal(false);
-    console.log("edit");
+
+  // {'edit modal handlers'}
+
+  const editHandler = (product, productId) => {
+    setShowEditModal(true), setProductInfo(product);
+    setProductID(productId);
+    setToastMsg("ویرایش با موفقیت انجام شد");
   };
+  const editModalSubmitAction = (editedProduct, e) => {
+    e.preventDefault();
+    console.log(editedProduct);
+    fetch(`http://localhost:8000/api/products/${productID}`, {
+      method: "PUT",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify(editedProduct),
+    }).then((res) => {
+      console.log(res);
+      setShowEditModal(false);
+      setShowToastModal(true);
+      setTimeout(() => {
+        setShowToastModal(false);
+      }, 3000);
+      getData();
+    });
+  };
+
   const editModalCancelAction = () => {
     setShowEditModal(false);
   };
+
   const closeDetailModal = () => {
     setShowDetailModal(false);
   };
+
+  // {'detail modal handlers'}
+  const detailHandler = (product) => {
+    setShowDetailModal(true), setProductInfo(product);
+  };
+
   return (
     <div className='w-full overflow-x-auto p-0 md:p-12 rounded mt-5 '>
       <table className=' border-collapse w-full table-auto'>
@@ -48,10 +108,10 @@ const ProductTmp = () => {
               نام
             </th>
             <th scope='col' className=' p-4'>
-              موجودی
+              قیمت
             </th>
             <th scope='col' className=' p-4'>
-              قیمت
+              موجودی
             </th>
             <th>ویرایش و حذف</th>
           </tr>
@@ -80,23 +140,16 @@ const ProductTmp = () => {
               <td className='space-y-2'>
                 <button
                   className='bg-blue-400 w-[50px] py-2 ms-1'
-                  onClick={() => {
-                    setShowEditModal(true), setProductInfo(product);
-                  }}>
+                  onClick={() => editHandler(product, product.id)}>
                   ویرایش
                 </button>
                 <button
-                  onClick={() => {
-                    setShowDeleteModal(true);
-                    setProductId(product.id);
-                  }}
+                  onClick={() => deleteHandler(product.id)}
                   className='bg-gray-800 text-white w-[50px] py-2 ms-1'>
                   حذف
                 </button>
                 <button
-                  onClick={() => {
-                    setShowDetailModal(true), setProductInfo(product);
-                  }}
+                  onClick={() => detailHandler(product)}
                   className='bg-gray-700 text-white w-[50px] py-2 ms-1'>
                   جزیات
                 </button>
@@ -122,6 +175,7 @@ const ProductTmp = () => {
           cancelAction={deleteModalCancelAction}
         />
       )}
+      {showToastModal && <ToastModal msg={toastMsg} />}
     </div>
   );
 };

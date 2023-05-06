@@ -23,7 +23,7 @@ const TopBar = () => {
             </div>
           </span>
           <img
-            src='/images/userPhoto.jpg'
+            src='/img/userPhoto.jpg'
             className='w-[60px] rounded-full  me-5'
             alt=''
           />
@@ -49,7 +49,7 @@ const TopBar = () => {
 
           <div
             className={`topBar-left-container items-center
-            justify-end mb-4 md:mb-0 md:flex  ${
+            justify-end mb-4 md:mb-0 md:flex  mt-5 md:mt-0   ${
               isShowBar ? "flex" : "hidden"
             }`}>
             <div className='relative'>
@@ -57,17 +57,17 @@ const TopBar = () => {
                 type='text'
                 name=''
                 id=''
-                className='p-2 rounded-2xl w-[300px]'
+                className='p-1 md:p-2 rounded-2xl w-[200px] md:w-[300px]'
                 placeholder='جست و جو بکنید....'
               />
-              <button className=' bg-blue-900 w-[100px] rounded-xl py-2 text-white absolute left-0 top-0'>
+              <button className=' bg-blue-900 w-[70px] md:w-[100px] rounded-xl py-1 md:py-2 text-white absolute left-0 top-0'>
                 جستجو
               </button>
             </div>
-            <button className=' bg-blue-900  rounded-xl py-2 px-2  text-white flex justify-center items-center text-2xl ms-5'>
+            <button className=' bg-blue-900  rounded-xl py-2 px-2  text-white flex justify-center items-center text-sm md:text-2xl ms-5'>
               <BsSun />
             </button>
-            <button className=' bg-blue-900  rounded-xl py-2 px-2 text-white flex justify-center items-center text-2xl ms-5'>
+            <button className=' bg-blue-900  rounded-xl py-2 px-2 text-white flex justify-center items-center text-sm md:text-2xl ms-5'>
               <AiOutlineBell />
             </button>
           </div>
