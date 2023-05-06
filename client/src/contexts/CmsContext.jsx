@@ -14,7 +14,7 @@ const CmsContextProvider = ({ children }) => {
   const [isAddNewProduct, setIsAddNewProduct] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageNumbers, setPageNumbers] = useState([]);
-    const [pageCount, setPageCount] = useState(null);
+  const [pageCount, setPageCount] = useState(null);
 
   const value = {
     products,
