@@ -1,7 +1,7 @@
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import ReactDOM from "react-dom";
 import { CmsContext } from "../../contexts/CmsContext";
-const EditProductModal = ({ submitAction, cancelAction, productInfo }) => {
+const EditProductModal = ({ submitAction, cancelAction, productInfo  }) => {
   const { showEditModal } = useContext(CmsContext);
   const [editProduct, setEditProduct] = useState(productInfo);
   return ReactDOM.createPortal(

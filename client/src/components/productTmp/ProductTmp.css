@@ -1,6 +1,10 @@
-th,td{
-    width: 15%;
+ .product-table td{
     text-align: center;
-    font-size: 24px;
-    font-weight: 700;
+    padding: 10px;
+}
+
+.product-table th{
+    text-align: center;
+        padding: 20px;
+        font-weight: 700;
 }

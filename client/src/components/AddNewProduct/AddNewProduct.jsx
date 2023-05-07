@@ -1,7 +1,9 @@
 import react, { useState, useContext } from "react";
 import { CmsContext } from "../../contexts/CmsContext";
+import ToastModal from "../../components/ToastModal/ToastModal";
 const AddNewProduct = () => {
   const { isAddNewProduct, setIsAddNewProduct } = useContext(CmsContext);
+  const [showToastModal, setShowToastModal] = useState(false);
   // const checkBoxHandler = (e) => {
   //   let isChecked = e.target.checked;
   //   if (isChecked) {
@@ -39,8 +41,6 @@ const AddNewProduct = () => {
   };
   const fromSubmitHandler = (e) => {
     e.preventDefault();
-    // let checkBox = document.querySelectorAll(".checkBox");
-    // checkBox.forEach((box) => (box.checked = false));
     if (!Object.values(productData).includes("")) {
       console.log(productData);
       fetch("http://localhost:8000/api/products", {
@@ -51,13 +51,21 @@ const AddNewProduct = () => {
         .then((res) => res.json())
         .then((data) => {
           if (data) {
-            setIsAddNewProduct(prv=>!prv);
+            setIsAddNewProduct((prv) => !prv);
+            setShowToastModal(true);
+            setTimeout(() => {
+              setShowToastModal(false);
+            }, 3000);
           }
         });
       resetData();
     } else {
       alert("مقادیر مورد نیاز را پر کنید");
     }
+  };
+
+  const closeToastHandler = () => {
+    setShowToastModal(false);
   };
   return (
     <div className='addNewProduct text-black mt-5 p-0 md:p-5'>
@@ -169,71 +177,6 @@ const AddNewProduct = () => {
             className='bg-gray-300 p-2 w-full rounded placeholder-black'
           />
         </div>
-
-        {/* <div className='addProduct-from-group md:col-span-2  flex justify-start items-center bg-gray-200 '>
-          <h6 className=''>رنگبندی :</h6>
-          <div className='flex items-center justify-start bg-gray-200 flex-auto flex-wrap'>
-            <div className='p-2 rounded-xl flex items-center'>
-              <label htmlFor='black'>مشکی</label>
-              <input
-                className='checkBox ms-2'
-                type='checkbox'
-                id='black'
-                value={"مشکی"}
-                onChange={(e) => {
-                  checkBoxHandler(e);
-                }}
-              />
-            </div>
-            <div className='p-2 rounded-xl flex items-center'>
-              <label htmlFor='blue'>آبی</label>
-              <input
-                className='checkBox'
-                type='checkbox'
-                id='blue'
-                value={"آبی"}
-                onChange={(e) => {
-                  checkBoxHandler(e);
-                }}
-              />
-            </div>
-            <div className='p-2 rounded-xl flex items-center'>
-              <label htmlFor='silver'>نقره ای</label>
-              <input
-                className='checkBox ms-2'
-                type='checkbox'
-                id='silver'
-                value={"نقره ای"}
-                onChange={(e) => {
-                  checkBoxHandler(e);
-                }}
-              />
-            </div>
-            <div className='p-2 rounded-xl flex items-center'>
-              <label htmlFor='peach'>هلویی</label>
-              <input
-                className='checkBox ms-2'
-                type='checkbox'
-                id='peach'
-                value={"هلویی"}
-                onChange={(e) => {
-                  checkBoxHandler(e);
-                }}
-              />
-            </div>
-            <div className='p-2 rounded-xl flex items-center'>
-              <label htmlFor='other'>سایر</label>
-              <input
-                className='checkBox ms-2'
-                type='checkbox'
-                id='other'
-                value={"سایر"}
-                onChange={(e) => checkBoxHandler(e)}
-              />
-            </div>
-          </div>
-        </div> */}
-
         <div className='addProduct-from-group md:col-span-2 text-center'>
           <button
             onClick={fromSubmitHandler}
@@ -242,6 +185,12 @@ const AddNewProduct = () => {
           </button>
         </div>
       </form>
+      {showToastModal && (
+        <ToastModal
+          msg='محصول مورد نظر با موفقیت ثبت گردید'
+          onClose={closeToastHandler}
+        />
+      )}
     </div>
   );
 };

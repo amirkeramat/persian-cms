@@ -61,7 +61,7 @@ const SideBar = () => {
 
   return (
     <div
-      className={`fixed z-30 md:sticky  duration-700 top-0 right-0  h-screen bg-blue-900  text-white text-xl overflow-y-auto  ${
+      className={`fixed z-30 lg:sticky  duration-700 top-0 right-0  h-screen bg-blue-900  text-white text-xl overflow-y-auto  ${
         showMenu ? " w-[200px] md:w-[200px] p-2 " : "w-0 right-[-200px] p-0"
       }`}>
       <span className='flex p-2'>

@@ -15,17 +15,17 @@ const ProductTmp = () => {
     showEditModal,
     showDetailModal,
     showDeleteModal,
-    showToastModal,
-    setShowToastModal,
     setIsActive,
     isAddNewProduct,
     currentPage,
     setPageCount,
   } = useContext(CmsContext);
-  const [toastMsg, setToastMsg] = useState(null);
+
   const [ProductInfo, setProductInfo] = useState({});
   const [productID, setProductID] = useState(null);
   const [products, setProducts] = useState([]);
+  const [showDeleteToast, setShowDeleteToast] = useState(false);
+  const [showEditToast, setShowEditToast] = useState(false);
   let pageSize = 2;
   const getData = () => {
     fetch("http://localhost:8000/api/products")
@@ -62,9 +62,9 @@ const ProductTmp = () => {
       .then((result) => {
         console.log(result);
         setShowDeleteModal(false);
-        setShowToastModal(true);
+        setShowDeleteToast(true);
         setTimeout(() => {
-          setShowToastModal(false);
+          setShowDeleteToast(false);
         }, 3000);
         getData();
       });
@@ -91,9 +91,9 @@ const ProductTmp = () => {
     }).then((res) => {
       console.log(res);
       setShowEditModal(false);
-      setShowToastModal(true);
+      setShowEditToast(true);
       setTimeout(() => {
-        setShowToastModal(false);
+        setShowEditToast(false);
       }, 3000);
       getData();
     });
@@ -111,11 +111,18 @@ const ProductTmp = () => {
   const detailHandler = (product) => {
     setShowDetailModal(true), setProductInfo(product);
   };
-
+  //tost show handlers
+  const closeEditToast = () => {
+    setShowEditToast(false);
+  };
+  const closeDeleteToast = () => {
+    setShowDeleteToast(false);
+  };
+  //
   return (
     <>
       {products.length ? (
-        <div className='w-full overflow-x-auto p-0 md:p-12 rounded mt-5 '>
+        <div className='product-table w-full overflow-x-auto p-0 md:p-12 rounded mt-5 '>
           <table className=' border-collapse w-full table-auto'>
             <thead className='bg-blue-100 text-blue-900 border border-blue-950'>
               <tr>
@@ -141,7 +148,7 @@ const ProductTmp = () => {
                   className='bg-gray-100 even:bg-gray-300 shadow shadow-black'>
                   <td scope='col' className=''>
                     <img
-                      className='inline w-[250px] h-[250px] object-contain mix-blend-multiply'
+                      className='inline w-[150px] h-[150px] object-contain mix-blend-multiply'
                       src={product.img}
                       alt=''
                     />
@@ -195,9 +202,15 @@ const ProductTmp = () => {
         <DeleteModal
           submitAction={deleteModalSubmitAction}
           cancelAction={deleteModalCancelAction}
+          title='آیا از خذف اطمینان دارید؟'
         />
       )}
-      {showToastModal && <ToastModal msg={toastMsg} />}
+      {showEditToast && (
+        <ToastModal msg='ویرایش با موفقیت انجام شد' onClose={closeEditToast} />
+      )}
+      {showDeleteToast && (
+        <ToastModal msg='حذف با موفقیت انجام شد' onClose={closeDeleteToast} />
+      )}
     </>
   );
 };
